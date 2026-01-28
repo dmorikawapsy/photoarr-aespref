@@ -22,6 +22,17 @@
   <script>
     const jsPsych = initJsPsych();
 
+    // ====================================================================================================
+    // const stopExperiment と timeline.push(stopExperiment) を削除して有効化
+    // ====================================================================================================
+    const stopExperiment = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
+        <h3>このサイトは実験参加者の募集を終了しています。</h3>
+      `,
+      choices: "NO_KEYS",
+    };
+
     const subjectID = jsPsych.randomization.randomID(10);
     const filename = `${subjectID}.csv`;
     const filenameNotConsented = `${subjectID}_non-consented.csv`;
@@ -572,6 +583,7 @@
     };
 
     let timeline = [];
+    timeline.push(stopExperiment);
     timeline.push(pcFormIntro);
     timeline.push(informedConsentFirst);
     timeline.push(afterFirstConsent);
